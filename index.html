@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Classic Mac OS Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="desktop">
+    <div class="window" id="welcome-window">
+      <div class="title-bar">
+        <div class="close-button"></div>
+        <div class="title">Welcome</div>
+      </div>
+      <div class="window-content">
+        <p>PABOLU VENKATA SUBRAHMANYA DHEERAJ</p>
+        <p>CARRIER OBJECTIVE</p>
+        <p>Work for an organization that provides me the opportunity to improve my skills and knowledge to grow along with the organization’s objective.</p>
+      </div>
+    </div>
+
+    <div class="window" id="skills-window">
+      <div class="title-bar">
+        <div class="close-button"></div>
+        <div class="title">Technical Strengths</div>
+      </div>
+      <div class="window-content">
+        <p><strong>Programming Languages:</strong> Python 3, Java</p>
+        <p><strong>Frameworks:</strong> Flask, Spring Boot, React js</p>
+        <p><strong>Web Technologies:</strong> HTML, CSS, Tailwindcss</p>
+        <p><strong>Database:</strong> Structured Query Language (SQL)</p>
+        <p><strong>Web Tools:</strong> Github, Git</p>
+      </div>
+    </div>
+
+    <div class="window" id="projects-window">
+      <div class="title-bar">
+        <div class="close-button"></div>
+        <div class="title">Projects</div>
+      </div>
+      <div class="window-content">
+        <div class="project">
+          <h3>Full-Stack Firebase User Portfolio System</h3>
+          <p>Developed user authentication, profile management, and file upload features using Firebase Authentication, Realtime Database & Storage.</p>
+          <p>Built a clean and responsive UI using HTML and CSS to ensure user-friendly interface.</p>
+          <p>Created an admin dashboard in Flask to manage user lifecycle (CRUD operations), leading to clean and structured data handling.</p>
+        </div>
+        <div class="project">
+          <h3>Representation and Symbols of Nucleotide Sequence Data</h3>
+          <p>Developed a tool that converts any input text into a DNA-base sequence (A, C, G, T) and displays the output in four distinct colours.</p>
+        </div>
+        <div class="project">
+          <h3>Resume to Portfolio Generator</h3>
+          <p>Built a full-stack application using React (Vite) and Flask that converts resume PDFs into AI-generated, responsive portfolio websites.</p>
+          <p>Automated deployment by integrating GitHub APIs to create repositories, upload HTML/CSS files, and deliver a live GitHub Pages link within seconds.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="education-window">
+      <div class="title-bar">
+        <div class="close-button"></div>
+        <div class="title">Education</div>
+      </div>
+      <div class="window-content">
+        <div class="education-item">
+          <h4>Bachelor of Engineering, Computer Science and Engineering</h4>
+          <p>R . M . D E n g i n e e r i n g C o l l e g e , C h e n n a i</p>
+          <p>2022 - 2026</p>
+          <p>CGPA: 7.70</p>
+        </div>
+        <div class="education-item">
+          <h4>Higher Secondary School</h4>
+          <p>N a r a y a n a J r . c o l l e g e , N e l l o r e</p>
+          <p>2020 - 2022</p>
+          <p>Percentage: 92.6</p>
+        </div>
+        <div class="education-item">
+          <h4>Secondary Education</h4>
+          <p>V i v e k a n a n d a H . S</p>
+          <p>2020</p>
+          <p>Percentage: 76.17</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="certifications-window">
+      <div class="title-bar">
+        <div class="close-button"></div>
+        <div class="title">Certifications</div>
+      </div>
+      <div class="window-content">
+        <p>DATA BASE MANAGEMENT SYSTEM - NPTEL</p>
+        <p>Responsive Web Design - free code camp</p>
+      </div>
+    </div>
+
+    <div class="window" id="contact-window">
+      <div class="title-bar">
+        <div class="close-button"></div>
+        <div class="title">Contact</div>
+      </div>
+      <div class="window-content">
+        <p>B-11-582, Chennuru road, Buchi reddy palem</p>
+        <p>(+91)7032671918</p>
+        <p>subrahmanyadheeraj1918@gmail.com</p>
+        <p><a href="https://dheeraj1918.github.io/portfolio/" target="_blank">Portfolio Link</a></p>
+        <p><a href="https://github.com/dheeraj1918" target="_blank">Github Profile</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const windows = document.querySelectorAll('.window');
+    let activeWindow = null;
+    let offsetX, offsetY, isDragging = false;
+
+    // Initialize window positions and z-indexes
+    windows.forEach((win, index) => {
+      win.style.zIndex = 10 + index;
+      const initialX = Math.random() * (window.innerWidth - 300);
+      const initialY = Math.random() * (window.innerHeight - 200);
+      win.style.left = `${initialX}px`;
+      win.style.top = `${initialY}px`;
+    });
+
+    // Bring window to front on click
+    windows.forEach(win => {
+      win.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.title-bar')) {
+          // Bring to front
+          const maxZIndex = Math.max(...Array.from(windows).map(w => parseInt(w.style.zIndex)));
+          win.style.zIndex = maxZIndex + 1;
+          activeWindow = win;
+          isDragging = true;
+
+          offsetX = e.clientX - win.getBoundingClientRect().left;
+          offsetY = e.clientY - win.getBoundingClientRect().top;
+
+          // Prevent text selection during drag
+          e.preventDefault();
+        } else if (e.target.classList.contains('close-button')) {
+          win.style.display = 'none';
+        }
+      });
+    });
+
+    // Dragging functionality
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging || !activeWindow) return;
+
+      const desktopRect = document.querySelector('.desktop').getBoundingClientRect();
+      const newX = e.clientX - offsetX;
+      const newY = e.clientY - offsetY;
+
+      // Keep window within desktop bounds
+      const maxX = desktopRect.width - activeWindow.offsetWidth;
+      const maxY = desktopRect.height - activeWindow.offsetHeight;
+
+      activeWindow.style.left = `${Math.max(0, Math.min(newX, maxX))}px`;
+      activeWindow.style.top = `${Math.max(0, Math.min(newY, maxY))}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      activeWindow = null;
+    });
+
+    // Initial display of windows (can be controlled by CSS or JS)
+    windows.forEach(win => win.style.display = 'block');
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+
+body {
+  margin: 0;
+  font-family: 'Geneva', 'Verdana', sans-serif;
+  background-color: #808080; /* Light gray desktop */
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.window {
+  position: absolute;
+  width: 400px; /* Default width */
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  background-color: #c0c0c0; /* Platinum-like */
+  font-family: 'Chicago', 'Geneva', sans-serif;
+  font-size: 14px;
+  color: #000000;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  background-color: #a0a0a0; /* Darker gray for title bar */
+  border-bottom: 1px solid #ffffff;
+  cursor: default;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  padding: 0 5px;
+}
+
+.title-bar .close-button {
+  width: 14px;
+  height: 14px;
+  background-color: #ff5f56; /* Red */
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+}
+
+.title-bar .title {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  user-select: none; /* Prevent text selection */
+}
+
+.window-content {
+  padding: 15px;
+  line-height: 1.5;
+}
+
+.window-content p, .window-content h3, .window-content h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.window-content a {
+  color: #0000ee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.window-content a:hover {
+  color: #0000ff;
+}
+
+.project, .education-item {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.project:last-child, .education-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .window {
+    width: 90%;
+    left: 5% !important; /* Center horizontally */
+    top: auto !important; /* Reset top for stacking */
+    transform: translateX(-50%); /* Re-center after percentage calc */
+    position: static; /* Remove absolute positioning */
+    margin-bottom: 15px; /* Add space between stacked windows */
+    display: block !important; /* Ensure visible */
+  }
+
+  .desktop {
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+  }
+
+  .window-content {
+      max-height: 300px; /* Limit height for mobile scrolling */
+      overflow-y: auto;
+  }
+
+  .desktop .window {
+      position: relative !important;
+      left: 0 !important;
+      top: 0 !important;
+      transform: none !important;
+      margin-bottom: 15px;
+  }
+
+  .desktop .window:last-child {
+      margin-bottom: 0;
+  }
+}
